@@ -38,9 +38,24 @@
                 <li>
                     <a href="/post/list">Home</a>
                 </li>
-                <li>
-                    <a href="/post/write">write post</a>
-                </li>
+                <c:if test="${role.equals('admin')}">
+                    <li>
+                        <a href="/post/write">Write Post</a>
+                    </li>
+                </c:if>
+                <c:if test="${role.equals('member') || role.equals('admin')}">
+                    <li>
+                        <a href="/user/logout">Logout</a>
+                    </li>
+                </c:if>
+                <c:if test="${role == null}">
+                    <li>
+                        <a href="/user/signup">Sing Up</a>
+                    </li>
+                    <li>
+                        <a href="/user/login">Login</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -72,15 +87,16 @@
                 ${post.content}
             </div>
         </div>
-
-        <div class="pull-right">
-            <a href="/post/${post.id}/edit">
-                <button type="button" class="btn btn-warning">수정</button>
-            </a>
-            <a href="/post/${post.id}/delete" onclick="if(!confirm('진심이에요?')){return false;}">
-                <button type="button" class="btn btn-danger">삭제</button>
-            </a>
-        </div>
+        <c:if test="${role.equals('admin')}">
+            <div class="pull-right">
+                <a href="/post/${post.id}/edit">
+                    <button type="button" class="btn btn-warning">수정</button>
+                </a>
+                <a href="/post/${post.id}/delete" onclick="if(!confirm('진심이에요?')){return false;}">
+                    <button type="button" class="btn btn-danger">삭제</button>
+                </a>
+            </div>
+        </c:if>
     </div>
 </article>
 

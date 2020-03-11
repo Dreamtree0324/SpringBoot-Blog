@@ -23,18 +23,33 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand" href="/post/list">Spring Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/post/list">Home</a>
                 </li>
-                <li>
-                    <a href="/post/write">Write Post</a>
-                </li>
+                <c:if test="${role.equals('admin')}">
+                    <li>
+                        <a href="/post/write">Write Post</a>
+                    </li>
+                </c:if>
+                <c:if test="${role.equals('member') || role.equals('admin')}">
+                    <li>
+                        <a href="/user/logout">Logout</a>
+                    </li>
+                </c:if>
+                <c:if test="${role == null}">
+                    <li>
+                        <a href="/user/signup">Sing Up</a>
+                    </li>
+                    <li>
+                        <a href="/user/login">Login</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -57,7 +72,6 @@
         </div>
     </div>
 </header>
-
 <!-- Main Content -->
 <div class="container">
     <div class="row">
